@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import Menu from "../../containers/Menu";
 import ServiceCard from "../../components/ServiceCard";
 import EventCard from "../../components/EventCard";
@@ -13,7 +15,17 @@ import Modal from "../../containers/Modal";
 import { useData } from "../../contexts/DataContext";
 
 const Page = () => {
-  const {last} = useData()
+  const {data: lastData} = useData();
+  const last = lastData;
+
+  useEffect(() => {
+    if (!last) {
+      return;
+    }
+
+    // Once data is available, you can proceed with any necessary actions
+    console.log("Last event data:", last);
+  }, [last]);
   return <>
     <header>
       <Menu />
@@ -115,14 +127,16 @@ const Page = () => {
     </main>
     <footer className="row">
       <div className="col presta">
-        <h3>Notre derniére prestation</h3>
-        <EventCard
-          imageSrc={last?.cover}
-          title={last?.title}
-          date={new Date(last?.date)}
-          small
-          label="boom"
-        />
+        <h3>Notre dernière prestation</h3>
+        {last && last.events && last.events.length > 0 && (
+          <EventCard
+            imageSrc={last.events[last.events.length - 1].cover}
+            title={last.events[last.events.length - 1].title}
+            date={new Date(last.events[last.events.length - 1].date)}
+            small
+            label="boom"
+          />
+        )}
       </div>
       <div className="col contact">
         <h3>Contactez-nous</h3>
