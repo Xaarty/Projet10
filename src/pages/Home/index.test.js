@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import Home from "./index";
-
+jest.useFakeTimers();
 describe("When Form is created", () => {
   it("a list of fields card is displayed", async () => {
     render(<Home />);
@@ -9,7 +9,7 @@ describe("When Form is created", () => {
     await screen.findByText("Prénom");
     await screen.findByText("Personel / Entreprise");
   });
-
+  
   describe("and a click is triggered on the submit button", () => {
     it("the success message is displayed", async () => {
       render(<Home />);
@@ -20,6 +20,7 @@ describe("When Form is created", () => {
           bubbles: true,
         })
       );
+      jest.advanceTimersByTime(1000);
       await screen.findByText("En cours");
       await screen.findByText("Message envoyé !");
     });

@@ -21,7 +21,6 @@ const Slider = () => {
     nextCard();
   });
 
-  const generateKey = (prefix, idx) => `${prefix}_${idx}`;
 
   return (
     <div className="SlideCardList">
@@ -43,9 +42,9 @@ const Slider = () => {
           </div>
           <div className="SlideCard__paginationContainer">
             <div className="SlideCard__pagination">
-              {byDateDesc.map((_, radioIdx) =>  (
+              {byDateDesc.map((el, radioIdx) =>  (
                 <input
-                  key={generateKey('radio', radioIdx)}
+                  key={el.title}
                   type="radio"
                   name="radio-button"
                   checked={index === radioIdx}
