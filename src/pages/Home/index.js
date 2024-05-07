@@ -23,7 +23,6 @@ const Page = () => {
       return;
     }
 
-    // Once data is available, you can proceed with any necessary actions
     console.log("Last event data:", last);
   }, [last]);
   return <>
